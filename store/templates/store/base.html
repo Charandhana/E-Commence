@@ -1,0 +1,161 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}ShopEase{% endblock %}</title>
+
+    <link rel="stylesheet" href="{% static 'store/css/style.css' %}">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body>
+
+<div class="announcement">
+    <span>Summer Sale — Free Shipping on Orders Over ₹999</span>
+    <a href="{% url 'products' %}">Shop Now →</a>
+</div>
+
+
+<header class="navbar">
+
+    <div class="nav-container">
+
+        <a href="{% url 'home' %}" class="logo">
+            Shop<span>Ease</span>
+        </a>
+
+        <nav class="nav-links">
+            <a href="{% url 'home' %}">Home</a>
+            <a href="{% url 'products' %}">Products</a>
+            <a href="#">Categories</a>
+            <a href="#">About</a>
+            <a href="#">Contact</a>
+        </nav>
+
+        <div class="nav-search">
+            <i data-lucide="search"></i>
+            <input type="text" placeholder="Search products...">
+        </div>
+
+        <div class="nav-actions">
+
+            <button class="icon-btn">
+                <i data-lucide="heart"></i>
+            </button>
+
+            <a href="{% url 'cart' %}" class="icon-btn cart-btn">
+                <i data-lucide="shopping-cart"></i>
+                <span class="cart-count">0</span>
+            </a>
+
+            {% if user.is_authenticated %}
+                <a href="{% url 'logout' %}" class="login-btn">Logout</a>
+            {% else %}
+                <a href="{% url 'login' %}" class="login-btn">Login</a>
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</header>
+
+
+<main>
+    {% block content %}
+    {% endblock %}
+</main>
+
+
+<footer class="footer">
+
+    <div class="footer-container">
+
+        <div class="footer-brand">
+
+            <h2>Shop<span>Ease</span></h2>
+
+            <p>
+                Discover quality products at prices you'll love.
+                Simple shopping, made easier.
+            </p>
+
+        </div>
+
+
+        <div class="footer-column">
+
+            <h3>Shop</h3>
+
+            <a href="{% url 'products' %}">All Products</a>
+            <a href="#">Categories</a>
+            <a href="#">New Arrivals</a>
+            <a href="#">Best Sellers</a>
+
+        </div>
+
+
+        <div class="footer-column">
+
+            <h3>Support</h3>
+
+            <a href="#">Contact Us</a>
+            <a href="#">FAQs</a>
+            <a href="#">Shipping</a>
+            <a href="#">Returns</a>
+
+        </div>
+
+
+        <div class="footer-column">
+
+            <h3>Account</h3>
+
+            {% if user.is_authenticated %}
+                <a href="{% url 'logout' %}">Logout</a>
+            {% else %}
+                <a href="{% url 'login' %}">Login</a>
+                <a href="{% url 'register' %}">Register</a>
+            {% endif %}
+
+            <a href="{% url 'cart' %}">My Cart</a>
+
+        </div>
+
+    </div>
+
+
+    <div class="footer-bottom">
+
+        <p>© 2026 ShopEase. All rights reserved.</p>
+
+        <div>
+            <i data-lucide="instagram"></i>
+            <i data-lucide="facebook"></i>
+            <i data-lucide="twitter"></i>
+        </div>
+
+    </div>
+
+</footer>
+
+
+<script src="{% static 'store/js/script.js' %}"></script>
+
+<script>
+    lucide.createIcons();
+</script>
+
+</body>
+</html>

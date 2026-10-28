@@ -1,0 +1,180 @@
+{% extends 'store/base.html' %}
+
+{% block title %}{{ product.name }} — ShopEase{% endblock %}
+
+{% block content %}
+
+<section class="detail-section">
+
+    <div class="breadcrumb">
+
+        <a href="{% url 'home' %}">Home</a>
+
+        <span>/</span>
+
+        <a href="{% url 'products' %}">Products</a>
+
+        <span>/</span>
+
+        <strong>{{ product.name }}</strong>
+
+    </div>
+
+
+    <div class="product-detail">
+
+        <div class="detail-image">
+
+            {% if product.image %}
+
+                <img src="{{ product.image.url }}"
+                     alt="{{ product.name }}">
+
+            {% else %}
+
+                <div class="no-image">
+                    No Image Available
+                </div>
+
+            {% endif %}
+
+        </div>
+
+
+        <div class="detail-info">
+
+            <span class="detail-category">
+                ShopEase Collection
+            </span>
+
+            <h1>{{ product.name }}</h1>
+
+            <div class="detail-rating">
+
+                <span>★★★★★</span>
+
+                <small>4.8 (24 Reviews)</small>
+
+            </div>
+
+
+            <div class="detail-price">
+                ₹{{ product.price }}
+            </div>
+
+
+            <div class="detail-divider"></div>
+
+
+            <p class="detail-description">
+
+                {{ product.description }}
+
+            </p>
+
+
+            <div class="detail-stock">
+
+                <span class="stock-dot"></span>
+
+                In Stock
+
+            </div>
+
+
+            <div class="quantity-row">
+
+                <span>Quantity</span>
+
+                <div class="quantity-control">
+
+                    <button type="button" onclick="decreaseQuantity()">
+                        −
+                    </button>
+
+                    <input id="quantity"
+                           type="number"
+                           value="1"
+                           min="1">
+
+                    <button type="button" onclick="increaseQuantity()">
+                        +
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div class="detail-actions">
+
+                <a href="{% url 'add_to_cart' product.id %}"
+                   class="primary-btn add-detail-cart">
+
+                    <i data-lucide="shopping-cart"></i>
+
+                    Add to Cart
+
+                </a>
+
+                <button class="detail-heart">
+
+                    <i data-lucide="heart"></i>
+
+                </button>
+
+            </div>
+
+
+            <div class="detail-features">
+
+                <div>
+                    <i data-lucide="truck"></i>
+
+                    <span>
+                        Fast Delivery
+                    </span>
+                </div>
+
+                <div>
+                    <i data-lucide="shield-check"></i>
+
+                    <span>
+                        Secure Shopping
+                    </span>
+                </div>
+
+                <div>
+                    <i data-lucide="rotate-ccw"></i>
+
+                    <span>
+                        Easy Returns
+                    </span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<section class="related-section">
+
+    <div class="section-heading">
+
+        <div>
+            <span class="section-label">
+                YOU MAY ALSO LIKE
+            </span>
+
+            <h2>Related Products</h2>
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

@@ -1,0 +1,114 @@
+{% extends 'store/base.html' %}
+
+{% block content %}
+
+<section class="cart-section">
+
+    <div class="cart-header">
+        <p class="section-label">YOUR SHOPPING CART</p>
+        <h1>Shopping Cart</h1>
+    </div>
+
+    {% if cart_items %}
+
+        <div class="cart-container">
+
+            <div class="cart-items">
+
+                {% for item in cart_items %}
+
+                <div class="cart-item">
+
+                    <div class="cart-item-image">
+                        {% if item.product.image %}
+                            <img src="{{ item.product.image.url }}"
+                                 alt="{{ item.product.name }}">
+                        {% else %}
+                            <div class="no-image">No Image</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="cart-item-info">
+
+                        <h3>{{ item.product.name }}</h3>
+
+                        <p>₹{{ item.product.price }}</p>
+
+                        <span>
+                            Quantity: {{ item.quantity }}
+                        </span>
+
+                    </div>
+
+                    <div class="cart-item-total">
+                        ₹{{ item.subtotal }}
+                    </div>
+
+                    <!-- REMOVE BUTTON -->
+
+                    <form action="{% url 'remove_from_cart' item.product.id %}"
+                          method="POST">
+
+                        {% csrf_token %}
+
+                        <button type="submit" class="remove-cart-btn">
+                            Remove
+                        </button>
+
+                    </form>
+
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+
+            <!-- ORDER SUMMARY -->
+
+            <div class="cart-summary">
+
+                <h2>Order Summary</h2>
+
+                <div class="summary-row">
+                    <span>Subtotal</span>
+                    <span>₹{{ total }}</span>
+                </div>
+
+                <div class="summary-row">
+                    <span>Shipping</span>
+                    <span>Free</span>
+                </div>
+
+                <div class="summary-total">
+                    <span>Total</span>
+                    <span>₹{{ total }}</span>
+                </div>
+
+                <a href="{% url 'home' %}" class="continue-btn">
+                    Continue Shopping
+                </a>
+
+            </div>
+
+        </div>
+
+    {% else %}
+
+        <div class="empty-cart">
+
+            <h2>Your cart is empty</h2>
+
+            <p>Add some products to your cart to see them here.</p>
+
+            <a href="{% url 'products' %}" class="continue-btn">
+                Browse Products
+            </a>
+
+        </div>
+
+    {% endif %}
+
+</section>
+
+{% endblock %}

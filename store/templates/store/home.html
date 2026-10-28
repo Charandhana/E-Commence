@@ -1,0 +1,317 @@
+{% extends 'store/base.html' %}
+
+{% block title %}ShopEase — Shop Smarter{% endblock %}
+
+{% block content %}
+
+<section class="hero">
+
+    <div class="hero-container">
+
+        <div class="hero-content">
+
+            <div class="hero-label">
+                <span></span>
+                NEW COLLECTION
+            </div>
+
+            <h1>
+                Everything you need.
+                <strong>All in one place.</strong>
+            </h1>
+
+            <p>
+                Discover trending products, everyday essentials
+                and premium picks — all at prices you'll love.
+            </p>
+
+            <div class="hero-buttons">
+
+                <a href="{% url 'products' %}" class="primary-btn">
+                    Shop Now
+                    <i data-lucide="arrow-right"></i>
+                </a>
+
+                <a href="{% url 'products' %}" class="secondary-btn">
+                    Explore Products
+                </a>
+
+            </div>
+
+            <div class="hero-stats">
+
+                <div>
+                    <strong>10K+</strong>
+                    <span>Products</span>
+                </div>
+
+                <div>
+                    <strong>5K+</strong>
+                    <span>Customers</span>
+                </div>
+
+                <div>
+                    <strong>4.8/5</strong>
+                    <span>Rating</span>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="hero-visual">
+
+            <div class="hero-glow"></div>
+
+            {% if products %}
+                {% with product=products.0 %}
+
+                    {% if product.image %}
+                        <img src="{{ product.image.url }}"
+                             alt="{{ product.name }}">
+                    {% endif %}
+
+                    <div class="hero-product-card">
+
+                        <span>Featured Product</span>
+
+                        <h3>{{ product.name }}</h3>
+
+                        <strong>₹{{ product.price }}</strong>
+
+                    </div>
+
+                {% endwith %}
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<section class="section">
+
+    <div class="section-heading">
+
+        <div>
+            <span class="section-label">EXPLORE</span>
+            <h2>Shop by Category</h2>
+        </div>
+
+        <a href="{% url 'products' %}" class="view-link">
+            View All
+            <i data-lucide="arrow-up-right"></i>
+        </a>
+
+    </div>
+
+
+    <div class="categories-grid">
+
+        <a href="{% url 'products' %}" class="category-card">
+            <div class="category-icon">
+                <i data-lucide="smartphone"></i>
+            </div>
+            <h3>Electronics</h3>
+            <span>Explore Collection</span>
+        </a>
+
+        <a href="{% url 'products' %}" class="category-card">
+            <div class="category-icon">
+                <i data-lucide="shirt"></i>
+            </div>
+            <h3>Fashion</h3>
+            <span>Explore Collection</span>
+        </a>
+
+        <a href="{% url 'products' %}" class="category-card">
+            <div class="category-icon">
+                <i data-lucide="headphones"></i>
+            </div>
+            <h3>Accessories</h3>
+            <span>Explore Collection</span>
+        </a>
+
+        <a href="{% url 'products' %}" class="category-card">
+            <div class="category-icon">
+                <i data-lucide="home"></i>
+            </div>
+            <h3>Home & Living</h3>
+            <span>Explore Collection</span>
+        </a>
+
+    </div>
+
+</section>
+
+
+<section class="section products-section">
+
+    <div class="section-heading">
+
+        <div>
+            <span class="section-label">OUR PRODUCTS</span>
+            <h2>Featured Products</h2>
+        </div>
+
+        <a href="{% url 'products' %}" class="view-link">
+            View All
+            <i data-lucide="arrow-up-right"></i>
+        </a>
+
+    </div>
+
+
+    <div class="product-grid">
+
+        {% for product in products %}
+
+        <div class="product-card">
+
+            <div class="product-image">
+
+                {% if product.image %}
+                    <img src="{{ product.image.url }}"
+                         alt="{{ product.name }}">
+                {% endif %}
+
+                <button class="wishlist">
+                    <i data-lucide="heart"></i>
+                </button>
+
+                <div class="product-overlay">
+
+                    <a href="{% url 'product_detail' product.id %}">
+                        Quick View
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <div class="product-info">
+
+                <span class="product-category">
+                    ShopEase Collection
+                </span>
+
+                <h3>{{ product.name }}</h3>
+
+                <div class="product-bottom">
+
+                    <strong>₹{{ product.price }}</strong>
+
+                    <a href="{% url 'add_to_cart' product.id %}"
+                       class="add-cart">
+
+                        <i data-lucide="shopping-cart"></i>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% empty %}
+
+        <div class="empty-products">
+
+            <h3>No products available</h3>
+
+            <p>
+                Add products through the Django admin panel.
+            </p>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</section>
+
+
+<section class="promo-section">
+
+    <div class="promo-content">
+
+        <span>SHOP SMARTER</span>
+
+        <h2>
+            Great products.
+            <br>
+            Better prices.
+        </h2>
+
+        <p>
+            Find everything you need without the unnecessary hassle.
+        </p>
+
+        <a href="{% url 'products' %}" class="primary-btn">
+            Start Shopping
+            <i data-lucide="arrow-right"></i>
+        </a>
+
+    </div>
+
+    <div class="promo-decoration">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+
+</section>
+
+
+<section class="benefits">
+
+    <div class="benefit">
+
+        <div class="benefit-icon">
+            <i data-lucide="truck"></i>
+        </div>
+
+        <div>
+            <h3>Fast Delivery</h3>
+            <p>Quick and reliable delivery</p>
+        </div>
+
+    </div>
+
+
+    <div class="benefit">
+
+        <div class="benefit-icon">
+            <i data-lucide="headphones"></i>
+        </div>
+
+        <div>
+            <h3>Customer Support</h3>
+            <p>We're here whenever you need us</p>
+        </div>
+
+    </div>
+
+
+    <div class="benefit">
+
+        <div class="benefit-icon">
+            <i data-lucide="shield-check"></i>
+        </div>
+
+        <div>
+            <h3>Secure Shopping</h3>
+            <p>Safe and trusted checkout</p>
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

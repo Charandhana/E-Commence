@@ -1,0 +1,56 @@
+{% extends 'store/base.html' %}
+
+{% block title %}Order Confirmed — ShopEase{% endblock %}
+
+{% block content %}
+
+<section class="success-page">
+
+    <div class="success-card">
+
+        <div class="success-icon">
+
+            <i data-lucide="check"></i>
+
+        </div>
+
+
+        <span class="section-label">
+            ORDER CONFIRMED
+        </span>
+
+
+        <h1>
+            Thank you for your order!
+        </h1>
+
+
+        <p>
+            Your order has been successfully placed.
+            We'll get your items ready for delivery.
+        </p>
+
+
+        <div class="success-actions">
+
+            <a href="{% url 'products' %}"
+               class="primary-btn">
+
+                Continue Shopping
+
+            </a>
+
+            <a href="{% url 'home' %}"
+               class="secondary-btn">
+
+                Back to Home
+
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

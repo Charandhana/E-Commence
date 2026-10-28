@@ -1,0 +1,267 @@
+{% extends 'store/base.html' %}
+
+{% block title %}Checkout — ShopEase{% endblock %}
+
+{% block content %}
+
+<section class="checkout-page">
+
+    <div class="page-title">
+
+        <span class="section-label">CHECKOUT</span>
+
+        <h1>Complete Your Order</h1>
+
+        <p>
+            Enter your details and confirm your purchase.
+        </p>
+
+    </div>
+
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+        <div class="checkout-layout">
+
+
+            <div class="checkout-form">
+
+                <div class="checkout-card">
+
+                    <div class="checkout-card-title">
+
+                        <div class="step-number">
+                            01
+                        </div>
+
+                        <div>
+                            <h2>Contact Information</h2>
+                            <p>Your contact details</p>
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-grid">
+
+                        <div class="form-group full">
+
+                            <label>
+                                Full Name
+                            </label>
+
+                            <input type="text"
+                                   name="name"
+                                   placeholder="Enter your full name"
+                                   required>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>
+                                Email Address
+                            </label>
+
+                            <input type="email"
+                                   name="email"
+                                   placeholder="you@example.com"
+                                   required>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>
+                                Phone Number
+                            </label>
+
+                            <input type="tel"
+                                   name="phone"
+                                   placeholder="+91 XXXXX XXXXX"
+                                   required>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="checkout-card">
+
+                    <div class="checkout-card-title">
+
+                        <div class="step-number">
+                            02
+                        </div>
+
+                        <div>
+                            <h2>Delivery Address</h2>
+                            <p>Where should we deliver your order?</p>
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-grid">
+
+                        <div class="form-group full">
+
+                            <label>
+                                Address
+                            </label>
+
+                            <textarea name="address"
+                                      rows="4"
+                                      placeholder="Enter your complete address"
+                                      required></textarea>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>
+                                City
+                            </label>
+
+                            <input type="text"
+                                   name="city"
+                                   placeholder="City"
+                                   required>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>
+                                PIN Code
+                            </label>
+
+                            <input type="text"
+                                   name="pincode"
+                                   placeholder="PIN Code"
+                                   required>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <aside class="checkout-summary">
+
+                <h2>Your Order</h2>
+
+
+                {% for item in cart_items %}
+
+                <div class="checkout-product">
+
+                    <div class="checkout-product-image">
+
+                        {% if item.product.image %}
+
+                            <img src="{{ item.product.image.url }}"
+                                 alt="{{ item.product.name }}">
+
+                        {% endif %}
+
+                    </div>
+
+
+                    <div>
+
+                        <h3>
+                            {{ item.product.name }}
+                        </h3>
+
+                        <span>
+                            Qty: {{ item.quantity }}
+                        </span>
+
+                    </div>
+
+
+                    <strong>
+                        ₹{{ item.total_price }}
+                    </strong>
+
+                </div>
+
+                {% endfor %}
+
+
+                <div class="summary-divider"></div>
+
+
+                <div class="summary-row">
+
+                    <span>Subtotal</span>
+
+                    <strong>
+                        ₹{{ total }}
+                    </strong>
+
+                </div>
+
+
+                <div class="summary-row">
+
+                    <span>Delivery</span>
+
+                    <strong>Free</strong>
+
+                </div>
+
+
+                <div class="summary-divider"></div>
+
+
+                <div class="summary-total">
+
+                    <span>Total</span>
+
+                    <strong>
+                        ₹{{ total }}
+                    </strong>
+
+                </div>
+
+
+                <button type="submit"
+                        class="checkout-btn">
+
+                    Place Order
+
+                    <i data-lucide="arrow-right"></i>
+
+                </button>
+
+
+                <div class="secure-checkout">
+
+                    <i data-lucide="shield-check"></i>
+
+                    Secure checkout
+
+                </div>
+
+            </aside>
+
+        </div>
+
+    </form>
+
+</section>
+
+{% endblock %}

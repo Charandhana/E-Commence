@@ -1,0 +1,73 @@
+{% extends 'store/base.html' %}
+
+{% block content %}
+
+<section class="products-section">
+
+    <div class="products-header">
+        <p class="section-label">SHOP COLLECTION</p>
+        <h1>Our Products</h1>
+        <p>Discover products selected for you.</p>
+    </div>
+
+    <div class="products-grid">
+
+        {% for product in products %}
+
+        <div class="product-card">
+
+            <div class="product-image">
+                {% if product.image %}
+                    <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                {% else %}
+                    <div class="no-image">No Image</div>
+                {% endif %}
+            </div>
+
+            <div class="product-info">
+
+                <h3>{{ product.name }}</h3>
+
+                <p class="product-description">
+                    {{ product.description|truncatewords:15 }}
+                </p>
+
+                <div class="product-bottom">
+
+                    <span class="product-price">
+                        ₹{{ product.price }}
+                    </span>
+
+                    <a href="{% url 'product_detail' product.id %}"
+                       class="details-btn">
+                        View Details
+                    </a>
+
+                </div>
+
+                <form action="{% url 'add_to_cart' product.id %}" method="POST">
+                    {% csrf_token %}
+
+                    <button type="submit" class="add-cart-btn">
+                        Add to Cart
+                    </button>
+                </form>
+
+            </div>
+
+        </div>
+
+        {% empty %}
+
+        <div class="empty-products">
+            <h2>No products available</h2>
+            <p>Add products from Django Admin.</p>
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</section>
+
+{% endblock %}
